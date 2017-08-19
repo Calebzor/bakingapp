@@ -1,7 +1,8 @@
-package hu.tvarga.bakingapp.ui;
+package hu.tvarga.bakingapp.di;
 
 import dagger.Subcomponent;
 import dagger.android.AndroidInjector;
+import hu.tvarga.bakingapp.ui.MainActivity;
 
 @Subcomponent(modules = MainActivityModule.class)
 public interface MainActivityComponent extends AndroidInjector<MainActivity> {

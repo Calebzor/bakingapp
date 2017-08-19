@@ -4,10 +4,13 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import javax.inject.Inject;
+
 public class ConnectivityHelper {
 
 	private Context context;
 
+	@Inject
 	public ConnectivityHelper(Context context) {
 		this.context = context.getApplicationContext();
 	}

@@ -16,9 +16,11 @@ import java.util.concurrent.ExecutorService;
 
 import hu.tvarga.bakingapp.data.BakingData;
 import hu.tvarga.bakingapp.dataaccess.ConnectivityHelper;
+import hu.tvarga.bakingapp.dataaccess.DispatcherProvider;
 import hu.tvarga.bakingapp.dataaccess.NetworkCallback;
 import hu.tvarga.bakingapp.dataaccess.Networking;
 import okhttp3.Call;
+import okhttp3.Dispatcher;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -33,6 +35,9 @@ public class NetworkingTest extends Assert {
 	Handler handler;
 
 	@Mock
+	DispatcherProvider dispatcherProvider;
+
+	@Mock
 	ExecutorService executorService;
 
 	@Captor
@@ -43,8 +48,9 @@ public class NetworkingTest extends Assert {
 	@Before
 	public void setUp() {
 		when(connectivityHelper.isNetworkAvailable()).thenReturn(true);
+		when(dispatcherProvider.getNewDispatcher()).thenReturn(new Dispatcher(executorService));
 
-		networking = new Networking(handler, connectivityHelper, executorService);
+		networking = new Networking(handler, connectivityHelper, dispatcherProvider);
 	}
 
 	/**

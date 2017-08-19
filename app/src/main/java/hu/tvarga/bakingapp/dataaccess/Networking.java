@@ -1,16 +1,13 @@
 package hu.tvarga.bakingapp.dataaccess;
 
-import android.content.Context;
 import android.os.Handler;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutorService;
 
 import javax.inject.Inject;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.Dispatcher;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -24,17 +21,12 @@ public class Networking {
 	private OkHttpClient client;
 
 	@Inject
-	public Networking(Context context) {
-		handler = new Handler();
-		connectivityHelper = new ConnectivityHelper(context);
-		client = new OkHttpClient();
-	}
-
 	public Networking(Handler handler, ConnectivityHelper connectivityHelper,
-			ExecutorService executorService) {
-		this.connectivityHelper = connectivityHelper;
+			DispatcherProvider dispatcherProvider) {
 		this.handler = handler;
-		client = new OkHttpClient.Builder().dispatcher(new Dispatcher(executorService)).build();
+		this.connectivityHelper = connectivityHelper;
+		client = new OkHttpClient.Builder().dispatcher(dispatcherProvider.getNewDispatcher())
+				.build();
 	}
 
 	public void get(String url, final NetworkCallback callback) {

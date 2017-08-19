@@ -1,4 +1,4 @@
-package hu.tvarga.bakingapp.ui;
+package hu.tvarga.bakingapp.di;
 
 import dagger.Module;
 

@@ -8,7 +8,6 @@ import dagger.android.ActivityKey;
 import dagger.android.AndroidInjector;
 import dagger.multibindings.IntoMap;
 import hu.tvarga.bakingapp.ui.MainActivity;
-import hu.tvarga.bakingapp.ui.MainActivityComponent;
 
 @Module
 public abstract class ActivityBuilder {

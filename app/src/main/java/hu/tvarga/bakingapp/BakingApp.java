@@ -8,15 +8,10 @@ import javax.inject.Inject;
 
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
-import hu.tvarga.bakingapp.dataaccess.Networking;
 import hu.tvarga.bakingapp.di.DaggerAppComponent;
 import timber.log.Timber;
 
 public class BakingApp extends Application implements HasActivityInjector {
-
-	public static final String LOG_TAG = "BakingApp";
-
-	Networking networking;
 
 	@Inject
 	DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
