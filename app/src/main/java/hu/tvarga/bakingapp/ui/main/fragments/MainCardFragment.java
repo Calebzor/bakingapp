@@ -2,6 +2,7 @@ package hu.tvarga.bakingapp.ui.main.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +46,11 @@ public class MainCardFragment extends BaseFragment {
 
 		mainCardAdapter = new MainCardAdapter(getActivity(), recepies);
 		recyclerView.setAdapter(mainCardAdapter);
+		RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+		if (layoutManager instanceof GridLayoutManager) {
+			GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
+			gridLayoutManager.setSpanCount(3);
+		}
 
 		return root;
 	}

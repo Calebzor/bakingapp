@@ -5,7 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -44,12 +46,22 @@ public class MainCardAdapter extends RecyclerView.Adapter<MainCardAdapter.MainCa
 		@BindView(R.id.recepyTitle)
 		TextView title;
 
+		@BindView(R.id.recepyImage)
+		ImageView imageView;
+
 		public MainCardViewHolder(View itemView) {
 			super(itemView);
 		}
 
-		void onBind(RecepyWithIngredientsAndSteps recepy) {
+		void onBind(final RecepyWithIngredientsAndSteps recepy) {
 			title.setText(recepy.name);
+			// load video thumbnail when available
+			itemView.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Toast.makeText(context, recepy.name, Toast.LENGTH_SHORT).show();
+				}
+			});
 		}
 	}
 }

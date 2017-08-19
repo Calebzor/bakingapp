@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	android:padding="16dp"
 	xmlns:tools="http://schemas.android.com/tools">
+
+	<ImageView
+		android:id="@+id/recepyImage"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:contentDescription="@string/recepy_image"
+		android:adjustViewBounds="true"
+		android:scaleType="fitXY"
+		android:src="@drawable/ic_format_list_bulleted_black_24dp" />
 
 	<TextView
 		android:id="@+id/recepyTitle"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
+		android:layout_height="64dp"
 		android:layout_gravity="center"
+		android:background="@color/colorPrimary"
+		android:textColor="@android:color/white"
+		android:textSize="24sp"
 		android:gravity="center"
+		android:layout_marginTop="8dp"
 		tools:text="Recepy Title" />
 
-</FrameLayout>
+</LinearLayout>
