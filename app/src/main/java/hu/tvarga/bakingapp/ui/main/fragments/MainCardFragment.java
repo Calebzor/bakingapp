@@ -52,6 +52,10 @@ public class MainCardFragment extends BaseFragment {
 	@Override
 	public void onResume() {
 		super.onResume();
+		loadDataForFragment();
+	}
+
+	private void loadDataForFragment() {
 		runInBackgroundThread(new Runnable() {
 			@Override
 			public void run() {
