@@ -1,25 +1,18 @@
 package hu.tvarga.bakingapp.di;
 
-import android.app.Application;
+import android.content.Context;
 
-import javax.inject.Singleton;
-
-import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.AndroidInjectionModule;
 import hu.tvarga.bakingapp.BakingApp;
+import hu.tvarga.bakingapp.di.scopes.ApplicationScope;
 
-@Singleton
-@Component(modules = {AndroidInjectionModule.class, AppModule.class, ActivityBuilder.class})
+@ApplicationScope
+@Component(modules = {AppModule.class, AndroidInjectionModule.class})
 public interface AppComponent {
 
-	@Component.Builder
-	interface Builder {
+	void inject(BakingApp bakingApp);
 
-		@BindsInstance
-		Builder application(Application application);
-		AppComponent build();
-	}
+	Context getContext();
 
-	void inject(BakingApp app);
 }

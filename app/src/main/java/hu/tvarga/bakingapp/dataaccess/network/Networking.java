@@ -5,8 +5,8 @@ import android.os.Handler;
 import java.io.IOException;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
+import hu.tvarga.bakingapp.di.scopes.ApplicationScope;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -15,7 +15,7 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 import timber.log.Timber;
 
-@Singleton
+@ApplicationScope
 public class Networking {
 
 	private ConnectivityHelper connectivityHelper;

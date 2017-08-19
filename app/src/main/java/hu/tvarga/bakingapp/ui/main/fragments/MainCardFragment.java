@@ -57,10 +57,14 @@ public class MainCardFragment extends BaseFragment {
 		runInBackgroundThread(new Runnable() {
 			@Override
 			public void run() {
-				//				dbFactory.getDb();
-				//				recepies = recepyWithIngredientsAndStepses;
-
-				//				RecepyFromNetworkDbHelper.addRecepiesToDb(recepies, dbFactory.getDb());
+				List<RecepyWithIngredientsAndSteps> recepyWithIngredientsAndStepses =
+						dbFactory.getDb().recepyWithIngredientsAndStepsDao()
+								.loadAllRecepyWithIngredientsAndSteps();
+				if (recepyWithIngredientsAndStepses != null) {
+					recepies.clear();
+					recepies.addAll(recepyWithIngredientsAndStepses);
+				}
+				mainCardAdapter.notifyDataSetChanged();
 			}
 		});
 	}

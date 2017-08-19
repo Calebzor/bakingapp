@@ -4,9 +4,10 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
-@Singleton
+import hu.tvarga.bakingapp.di.scopes.ApplicationScope;
+
+@ApplicationScope
 public class DbFactory {
 
 	AppDatabase db;

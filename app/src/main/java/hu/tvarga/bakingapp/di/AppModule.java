@@ -1,22 +1,30 @@
 package hu.tvarga.bakingapp.di;
 
-import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
 
 import dagger.Module;
 import dagger.Provides;
+import hu.tvarga.bakingapp.BakingApp;
+import hu.tvarga.bakingapp.di.scopes.ApplicationScope;
 
-@Module(subcomponents = {MainActivityComponent.class})
+@Module(includes = {ActivityInjectorModule.class, FragmentInjectorModule.class})
+@ApplicationScope
 public class AppModule {
 
-	@Provides
-	Context provideContext(Application application) {
-		return application;
+	private final BakingApp application;
+
+	public AppModule(BakingApp app) {
+		application = app;
 	}
 
 	@Provides
-	Handler provideMainHandler(Application application) {
+	Context provideContext() {
+		return application.getApplicationContext();
+	}
+
+	@Provides
+	Handler provideMainHandler() {
 		return new Handler(application.getMainLooper());
 	}
 
