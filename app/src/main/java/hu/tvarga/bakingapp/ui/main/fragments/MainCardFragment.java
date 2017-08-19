@@ -2,7 +2,6 @@ package hu.tvarga.bakingapp.ui.main.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +21,7 @@ import hu.tvarga.bakingapp.dataaccess.objects.RecepyWithIngredientsAndSteps;
 import hu.tvarga.bakingapp.ui.adapters.MainCardAdapter;
 
 import static hu.tvarga.bakingapp.utilties.DispatchQueueHelper.runInBackgroundThread;
+import static hu.tvarga.bakingapp.utilties.DispatchQueueHelper.runInMainThread;
 
 public class MainCardFragment extends BaseFragment {
 
@@ -35,7 +35,6 @@ public class MainCardFragment extends BaseFragment {
 	private View root;
 	private Unbinder unbinder;
 	private MainCardAdapter mainCardAdapter;
-	private LinearLayoutManager recyclerViewLayoutManager;
 
 	@Nullable
 	@Override
@@ -46,7 +45,6 @@ public class MainCardFragment extends BaseFragment {
 
 		mainCardAdapter = new MainCardAdapter(getActivity(), recepies);
 		recyclerView.setAdapter(mainCardAdapter);
-		recyclerViewLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
 
 		return root;
 	}
@@ -64,7 +62,12 @@ public class MainCardFragment extends BaseFragment {
 					recepies.clear();
 					recepies.addAll(recepyWithIngredientsAndStepses);
 				}
-				mainCardAdapter.notifyDataSetChanged();
+				runInMainThread(new Runnable() {
+					@Override
+					public void run() {
+						mainCardAdapter.notifyDataSetChanged();
+					}
+				});
 			}
 		});
 	}

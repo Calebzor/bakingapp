@@ -19,6 +19,7 @@ import hu.tvarga.bakingapp.dataaccess.db.RecepyFromNetworkDbHelper;
 import hu.tvarga.bakingapp.dataaccess.network.NetworkCallback;
 import hu.tvarga.bakingapp.dataaccess.network.Networking;
 import hu.tvarga.bakingapp.dataaccess.objects.RecepyWithIngredientsAndSteps;
+import hu.tvarga.bakingapp.ui.main.fragments.BaseFragment;
 import hu.tvarga.bakingapp.ui.main.fragments.MainCardFragment;
 import okhttp3.Call;
 import timber.log.Timber;
@@ -27,11 +28,15 @@ import static hu.tvarga.bakingapp.utilties.DispatchQueueHelper.runInBackgroundTh
 
 public class MainActivity extends DaggerAppCompatActivity {
 
+	public static final String BASE_FRAGMENT_INSTANCE_KEY = "BASE_FRAGMENT_INSTANCE_KEY";
+
 	@Inject
 	Networking networking;
 
 	@Inject
 	DbFactory dbFactory;
+
+	private BaseFragment baseFragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +44,24 @@ public class MainActivity extends DaggerAppCompatActivity {
 		setContentView(R.layout.activity_main);
 		ButterKnife.bind(this);
 
-		loadFragment(new MainCardFragment());
+		if (savedInstanceState != null) {
+			baseFragment = (BaseFragment) getSupportFragmentManager().getFragment(
+					savedInstanceState, BASE_FRAGMENT_INSTANCE_KEY);
+		}
+
+		if (baseFragment == null) {
+			baseFragment = new MainCardFragment();
+		}
+
+		loadFragment(baseFragment);
 
 		getRecepiesFromNetwork();
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		getSupportFragmentManager().putFragment(outState, BASE_FRAGMENT_INSTANCE_KEY, baseFragment);
 	}
 
 	private void getRecepiesFromNetwork() {
