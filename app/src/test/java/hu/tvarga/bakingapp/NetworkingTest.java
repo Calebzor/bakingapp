@@ -15,10 +15,10 @@ import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 
 import hu.tvarga.bakingapp.data.BakingData;
-import hu.tvarga.bakingapp.dataaccess.ConnectivityHelper;
-import hu.tvarga.bakingapp.dataaccess.DispatcherProvider;
-import hu.tvarga.bakingapp.dataaccess.NetworkCallback;
-import hu.tvarga.bakingapp.dataaccess.Networking;
+import hu.tvarga.bakingapp.dataaccess.network.ConnectivityHelper;
+import hu.tvarga.bakingapp.dataaccess.network.DispatcherProvider;
+import hu.tvarga.bakingapp.dataaccess.network.NetworkCallback;
+import hu.tvarga.bakingapp.dataaccess.network.Networking;
 import okhttp3.Call;
 import okhttp3.Dispatcher;
 

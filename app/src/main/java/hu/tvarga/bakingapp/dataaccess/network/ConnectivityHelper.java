@@ -1,4 +1,4 @@
-package hu.tvarga.bakingapp.dataaccess;
+package hu.tvarga.bakingapp.dataaccess.network;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

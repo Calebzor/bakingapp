@@ -1,4 +1,4 @@
-package hu.tvarga.bakingapp.dataaccess;
+package hu.tvarga.bakingapp.dataaccess.network;
 
 import javax.inject.Inject;
 

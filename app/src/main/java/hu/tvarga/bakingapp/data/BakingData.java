@@ -6,7 +6,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import hu.tvarga.bakingapp.dataaccess.objects.Recepy;
+import hu.tvarga.bakingapp.dataaccess.objects.RecepyWithIngredientsAndSteps;
 import hu.tvarga.bakingapp.utilties.GsonHelper;
 
 public abstract class BakingData {
@@ -311,8 +311,8 @@ public abstract class BakingData {
 		// Hiding default constructor
 	}
 
-	public static List<Recepy> getRecepies(String json) {
-		Type listType = new TypeToken<ArrayList<Recepy>>() {}.getType();
+	public static List<RecepyWithIngredientsAndSteps> getRecepies(String json) {
+		Type listType = new TypeToken<ArrayList<RecepyWithIngredientsAndSteps>>() {}.getType();
 		return GsonHelper.getGson().fromJson(json, listType);
 	}
 }

@@ -1,12 +1,16 @@
 package hu.tvarga.bakingapp.dataaccess.objects;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import android.arch.persistence.room.Entity;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Ingredient implements Parcelable {
+import java.io.Serializable;
+
+@Entity(primaryKeys = {"ingredient", "recepyId"})
+public class Ingredient implements Serializable {
+
+	private static final long serialVersionUID = 8688072108919790956L;
 
 	@SerializedName("quantity")
 	@Expose
@@ -17,31 +21,6 @@ public class Ingredient implements Parcelable {
 	@SerializedName("ingredient")
 	@Expose
 	public String ingredient;
-	public final static Parcelable.Creator<Ingredient> CREATOR = new Creator<Ingredient>() {
 
-		@SuppressWarnings({"unchecked"})
-		public Ingredient createFromParcel(Parcel in) {
-			Ingredient instance = new Ingredient();
-			instance.quantity = ((String) in.readValue((String.class.getClassLoader())));
-			instance.measure = ((String) in.readValue((String.class.getClassLoader())));
-			instance.ingredient = ((String) in.readValue((String.class.getClassLoader())));
-			return instance;
-		}
-
-		public Ingredient[] newArray(int size) {
-			return (new Ingredient[size]);
-		}
-
-	};
-
-	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeValue(quantity);
-		dest.writeValue(measure);
-		dest.writeValue(ingredient);
-	}
-
-	public int describeContents() {
-		return 0;
-	}
-
+	public Integer recepyId;
 }

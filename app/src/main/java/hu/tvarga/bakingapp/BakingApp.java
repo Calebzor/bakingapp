@@ -2,7 +2,6 @@ package hu.tvarga.bakingapp;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
 
 import javax.inject.Inject;
 
@@ -29,9 +28,6 @@ public class BakingApp extends Application implements HasActivityInjector {
 		DaggerAppComponent.builder().application(this).build().inject(this);
 	}
 
-	public static BakingApp get(Context context) {
-		return (BakingApp) context.getApplicationContext();
-	}
 
 	@Override
 	public DispatchingAndroidInjector<Activity> activityInjector() {
