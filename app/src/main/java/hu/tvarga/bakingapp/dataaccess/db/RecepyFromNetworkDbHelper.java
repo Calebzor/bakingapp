@@ -44,4 +44,9 @@ public class RecepyFromNetworkDbHelper {
 		}
 	}
 
+	public static void deleteDbContent(AppDatabase db) {
+		RecepyDao recepyDao = db.recepyDao();
+		recepyDao.delete();
+	}
+
 }

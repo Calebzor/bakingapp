@@ -9,13 +9,15 @@ import java.util.List;
 
 import hu.tvarga.bakingapp.dataaccess.objects.Ingredient;
 
+import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
+
 @Dao
 public interface IngredientDao {
 
 	@Query("SELECT * FROM ingredient WHERE recepyId IN (:recepyIds)")
 	List<Ingredient> loadAllByRecepyId(int[] recepyIds);
 
-	@Insert
+	@Insert(onConflict = REPLACE)
 	void insertAll(Ingredient... steps);
 
 	@Delete

@@ -26,6 +26,5 @@ public class ObjectSerializationTest {
 		List<Ingredient> ingredients = recepyWithIngredientsAndSteps.ingredients;
 		assertNotNull(ingredients);
 		assertFalse("Not an empty list is expected", ingredients.isEmpty());
-
 	}
 }

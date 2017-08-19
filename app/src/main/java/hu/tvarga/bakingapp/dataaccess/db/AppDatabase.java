@@ -7,7 +7,7 @@ import hu.tvarga.bakingapp.dataaccess.objects.Ingredient;
 import hu.tvarga.bakingapp.dataaccess.objects.Recepy;
 import hu.tvarga.bakingapp.dataaccess.objects.Step;
 
-@Database(entities = {Recepy.class, Ingredient.class, Step.class}, version = 1)
+@Database(entities = {Recepy.class, Ingredient.class, Step.class}, version = 2)
 public abstract class AppDatabase extends RoomDatabase {
 
 	public abstract RecepyDao recepyDao();

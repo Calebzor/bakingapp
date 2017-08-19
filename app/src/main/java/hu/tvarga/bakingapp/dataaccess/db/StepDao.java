@@ -9,13 +9,15 @@ import java.util.List;
 
 import hu.tvarga.bakingapp.dataaccess.objects.Step;
 
+import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
+
 @Dao
 public interface StepDao {
 
 	@Query("SELECT * FROM step WHERE recepyId IN (:recepyIds)")
 	List<Step> loadAllByRecepyId(int[] recepyIds);
 
-	@Insert
+	@Insert(onConflict = REPLACE)
 	void insertAll(Step... steps);
 
 	@Delete

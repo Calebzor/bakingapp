@@ -18,4 +18,9 @@ public class RecepyWithIngredientsAndSteps extends Recepy {
 	@Relation(parentColumn = "id", entityColumn = "recepyId")
 	public List<Step> steps;
 
+	@Override
+	public String toString() {
+		return "RecepyWithIngredientsAndSteps{" + "ingredients=" + ingredients + ", steps=" +
+				steps + "} " + super.toString();
+	}
 }

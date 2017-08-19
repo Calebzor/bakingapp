@@ -1,4 +1,4 @@
-package hu.tvarga.bakingapp.ui;
+package hu.tvarga.bakingapp.ui.main;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,17 +15,24 @@ import butterknife.ButterKnife;
 import dagger.android.AndroidInjection;
 import hu.tvarga.bakingapp.R;
 import hu.tvarga.bakingapp.data.BakingData;
+import hu.tvarga.bakingapp.dataaccess.db.DbFactory;
+import hu.tvarga.bakingapp.dataaccess.db.RecepyFromNetworkDbHelper;
 import hu.tvarga.bakingapp.dataaccess.network.NetworkCallback;
 import hu.tvarga.bakingapp.dataaccess.network.Networking;
 import hu.tvarga.bakingapp.dataaccess.objects.RecepyWithIngredientsAndSteps;
-import hu.tvarga.bakingapp.ui.fragments.MainCardFragment;
+import hu.tvarga.bakingapp.ui.main.fragments.MainCardFragment;
 import okhttp3.Call;
 import timber.log.Timber;
+
+import static hu.tvarga.bakingapp.utilties.DispatchQueueHelper.runInBackgroundThread;
 
 public class MainActivity extends AppCompatActivity {
 
 	@Inject
 	Networking networking;
+
+	@Inject
+	DbFactory dbFactory;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +65,16 @@ public class MainActivity extends AppCompatActivity {
 					failedToLoadRecepiesToast();
 					return;
 				}
-				//				RecepyFromNetworkDbHelper.addRecepiesToDb(recepies, db);
+				saveRecepiesToDB(recepies);
+			}
+		});
+	}
+
+	private void saveRecepiesToDB(final List<RecepyWithIngredientsAndSteps> recepies) {
+		runInBackgroundThread(new Runnable() {
+			@Override
+			public void run() {
+				RecepyFromNetworkDbHelper.addRecepiesToDb(recepies, dbFactory.getDb());
 			}
 		});
 	}

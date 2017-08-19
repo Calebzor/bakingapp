@@ -5,6 +5,7 @@ import android.os.Handler;
 import java.io.IOException;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -14,6 +15,7 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 import timber.log.Timber;
 
+@Singleton
 public class Networking {
 
 	private ConnectivityHelper connectivityHelper;

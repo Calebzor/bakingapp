@@ -25,6 +25,7 @@ import hu.tvarga.bakingapp.dataaccess.objects.RecepyWithIngredientsAndSteps;
 import hu.tvarga.bakingapp.dataaccess.objects.Step;
 
 import static hu.tvarga.bakingapp.dataaccess.db.RecepyFromNetworkDbHelper.addRecepiesToDb;
+import static hu.tvarga.bakingapp.dataaccess.db.RecepyFromNetworkDbHelper.deleteDbContent;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
@@ -96,6 +97,21 @@ public class SimpleEntityReadWriteTest {
 		assertThat(recepyWithIngredientsAndStepsList.size(), is(recepies.size()));
 		assertThat(recepyWithIngredientsAndStepsList.get(0).steps.get(0).videoURL, is(recepies.get(
 				0).steps.get(0).videoURL));
+	}
+
+	@Test
+	public void writingAllTwice() {
+		addRecepiesToDb(recepyWithIngredientsAndStepsList, db);
+		addRecepiesToDb(recepyWithIngredientsAndStepsList, db);
+	}
+
+	@Test
+	public void writingAllTwiceWithDelete() {
+		addRecepiesToDb(recepyWithIngredientsAndStepsList, db);
+
+		deleteDbContent(db);
+
+		addRecepiesToDb(recepyWithIngredientsAndStepsList, db);
 	}
 
 }

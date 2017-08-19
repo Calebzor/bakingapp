@@ -7,10 +7,18 @@ import javax.inject.Inject;
 
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
+import hu.tvarga.bakingapp.dataaccess.db.DbFactory;
+import hu.tvarga.bakingapp.dataaccess.network.Networking;
 import hu.tvarga.bakingapp.di.DaggerAppComponent;
 import timber.log.Timber;
 
 public class BakingApp extends Application implements HasActivityInjector {
+
+	@Inject
+	Networking networking;
+
+	@Inject
+	DbFactory dbFactory;
 
 	@Inject
 	DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;

@@ -1,13 +1,18 @@
 package hu.tvarga.bakingapp.dataaccess.objects;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-@Entity(primaryKeys = {"id", "recepyId"})
+import static android.arch.persistence.room.ForeignKey.CASCADE;
+
+@Entity(primaryKeys = {"id", "recepyId"},
+		foreignKeys = @ForeignKey(entity = Recepy.class, parentColumns = "id",
+				childColumns = "recepyId", onDelete = CASCADE))
 public class Step implements Serializable {
 
 	private static final long serialVersionUID = 2923780284996128776L;
@@ -29,4 +34,10 @@ public class Step implements Serializable {
 	public String thumbnailURL;
 	public Integer recepyId;
 
+	@Override
+	public String toString() {
+		return "Step{" + "id=" + id + ", shortDescription='" + shortDescription + '\'' +
+				", description='" + description + '\'' + ", videoURL='" + videoURL + '\'' +
+				", thumbnailURL='" + thumbnailURL + '\'' + ", recepyId=" + recepyId + '}';
+	}
 }

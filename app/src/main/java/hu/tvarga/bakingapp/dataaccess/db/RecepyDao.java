@@ -9,6 +9,8 @@ import java.util.List;
 
 import hu.tvarga.bakingapp.dataaccess.objects.Recepy;
 
+import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
+
 @Dao
 public interface RecepyDao {
 
@@ -18,9 +20,12 @@ public interface RecepyDao {
 	@Query("SELECT * FROM recepy WHERE id IN (:recepyIds)")
 	List<Recepy> loadAllByIds(int[] recepyIds);
 
-	@Insert
+	@Insert(onConflict = REPLACE)
 	void insertAll(Recepy... recepies);
 
 	@Delete
 	void delete(Recepy recepy);
+
+	@Query("DELETE FROM recepy")
+	void delete();
 }

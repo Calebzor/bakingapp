@@ -26,4 +26,10 @@ public class Recepy implements Serializable {
 	@SerializedName("image")
 	@Expose
 	public String image;
+
+	@Override
+	public String toString() {
+		return "Recepy{" + "id=" + id + ", name='" + name + '\'' + ", servings=" + servings +
+				", image='" + image + '\'' + '}';
+	}
 }
