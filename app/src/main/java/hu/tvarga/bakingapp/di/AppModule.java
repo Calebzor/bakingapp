@@ -6,6 +6,8 @@ import android.os.Handler;
 import dagger.Module;
 import dagger.Provides;
 import hu.tvarga.bakingapp.BakingApp;
+import hu.tvarga.bakingapp.di.androidinjectors.ActivityInjectorModule;
+import hu.tvarga.bakingapp.di.androidinjectors.FragmentInjectorModule;
 import hu.tvarga.bakingapp.di.scopes.ApplicationScope;
 
 @Module(includes = {ActivityInjectorModule.class, FragmentInjectorModule.class})

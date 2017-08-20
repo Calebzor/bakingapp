@@ -1,41 +1,48 @@
 package hu.tvarga.bakingapp.ui.detail;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 
 import hu.tvarga.bakingapp.R;
 import hu.tvarga.bakingapp.dataaccess.objects.RecepyWithIngredientsAndSteps;
-import hu.tvarga.bakingapp.ui.BaseActivity;
+import hu.tvarga.bakingapp.dataaccess.preferences.Preferences;
 import hu.tvarga.bakingapp.ui.adapters.DetailAdapter;
+import hu.tvarga.bakingapp.ui.detail.fragments.DetailBaseFragment;
 import hu.tvarga.bakingapp.ui.detail.fragments.DetailFragment;
 import hu.tvarga.bakingapp.ui.detail.fragments.IngredientsFragment;
 import hu.tvarga.bakingapp.ui.detail.fragments.SecondDetailFragment;
 import hu.tvarga.bakingapp.ui.detail.fragments.StepFragment;
+import hu.tvarga.bakingapp.utilties.GsonHelper;
 
 import static hu.tvarga.bakingapp.ui.adapters.MainCardAdapter.RECEPY_EXTRA_KEY;
+import static hu.tvarga.bakingapp.ui.detail.fragments.StepFragment.STEP_EXTRA_KEY;
 
-public class DetailActivity extends BaseActivity implements DetailAdapter.DetailItemClickAction {
+public class DetailActivity extends DetailBaseActivity
+		implements DetailAdapter.DetailItemClickAction {
 
 	private static final String SECOND_FRAGMENT_INSTANCE_KEY = "SECOND_FRAGMENT_INSTANCE_KEY";
 
 	SecondDetailFragment secondDetailFragment;
 	private boolean multiPane;
-	private RecepyWithIngredientsAndSteps recepy;
+	private SharedPreferences sharedPreferences;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detail);
 
-		Bundle extras = getIntent().getExtras();
-		recepy = (RecepyWithIngredientsAndSteps) extras.getSerializable(RECEPY_EXTRA_KEY);
+		sharedPreferences = Preferences.getSharedPreferences(this);
+		String recepyJson = sharedPreferences.getString(RECEPY_EXTRA_KEY, null);
+		recepy = GsonHelper.getGson().fromJson(recepyJson, RecepyWithIngredientsAndSteps.class);
 		if (recepy != null) {
 			setTitle(recepy.name);
 		}
 
 		if (baseFragment == null) {
 			baseFragment = new DetailFragment();
-			((DetailFragment) baseFragment).recepy = recepy;
+			((DetailBaseFragment) baseFragment).recepy = recepy;
 		}
 
 		loadFragment(baseFragment);
@@ -60,19 +67,9 @@ public class DetailActivity extends BaseActivity implements DetailAdapter.Detail
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		outState.putSerializable(RECEPY_EXTRA_KEY, recepy);
 		if (multiPane) {
 			getSupportFragmentManager().putFragment(outState, SECOND_FRAGMENT_INSTANCE_KEY,
 					secondDetailFragment);
-		}
-	}
-
-	@Override
-	protected void onRestoreInstanceState(Bundle savedInstanceState) {
-		super.onRestoreInstanceState(savedInstanceState);
-		if (savedInstanceState != null && savedInstanceState.containsKey(RECEPY_EXTRA_KEY)) {
-			recepy = (RecepyWithIngredientsAndSteps) savedInstanceState.getSerializable(
-					RECEPY_EXTRA_KEY);
 		}
 	}
 
@@ -95,7 +92,15 @@ public class DetailActivity extends BaseActivity implements DetailAdapter.Detail
 			secondDetailFragment.recepy = recepy;
 			((StepFragment) secondDetailFragment).step = step;
 			loadFragment(secondDetailFragment);
+			return;
 		}
-		// start activity with recepy and step
+		Intent intent = new Intent(this, AdditionalDetailActivity.class);
+		intent.putExtra(RECEPY_EXTRA_KEY, recepy);
+		if (step != null) {
+			intent.putExtra(STEP_EXTRA_KEY, step);
+		}
+		startActivity(intent);
+
 	}
+
 }

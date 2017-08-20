@@ -2,4 +2,8 @@
 	<string name="app_name">BakingApp</string>
 	<string name="recepy_image">Recepy image</string>
 	<string name="ingredients">Ingredients</string>
+	<string name="title_activity_ingredients">IngredientsActivity</string>
+	<string name="title_activity_steps">StepsActivity</string>
+	<string name="next_step">Next step</string>
+	<string name="previous_step">Previous step</string>
 </resources>

@@ -1,4 +1,4 @@
-package hu.tvarga.bakingapp.di;
+package hu.tvarga.bakingapp.di.androidinjectors;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

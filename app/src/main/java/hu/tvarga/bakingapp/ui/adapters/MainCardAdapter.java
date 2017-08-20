@@ -2,6 +2,7 @@ package hu.tvarga.bakingapp.ui.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,9 @@ import butterknife.BindView;
 import hu.tvarga.bakingapp.R;
 import hu.tvarga.bakingapp.dataaccess.objects.RecepyWithIngredientsAndSteps;
 import hu.tvarga.bakingapp.ui.detail.DetailActivity;
+import hu.tvarga.bakingapp.utilties.GsonHelper;
+
+import static hu.tvarga.bakingapp.dataaccess.preferences.Preferences.getSharedPreferences;
 
 public class MainCardAdapter extends RecyclerView.Adapter<MainCardAdapter.MainCardViewHolder> {
 
@@ -60,8 +64,10 @@ public class MainCardAdapter extends RecyclerView.Adapter<MainCardAdapter.MainCa
 			itemView.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
+					SharedPreferences sharedPreferences = getSharedPreferences(context);
+					sharedPreferences.edit().putString(RECEPY_EXTRA_KEY,
+							GsonHelper.getGson().toJson(recepy)).apply();
 					Intent intent = new Intent(context, DetailActivity.class);
-					intent.putExtra(RECEPY_EXTRA_KEY, recepy);
 					context.startActivity(intent);
 				}
 			});
