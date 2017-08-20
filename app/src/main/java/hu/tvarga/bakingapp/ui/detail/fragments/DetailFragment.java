@@ -1,4 +1,4 @@
-package hu.tvarga.bakingapp.ui.main.fragments;
+package hu.tvarga.bakingapp.ui.detail.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,22 +9,15 @@ import android.view.ViewGroup;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import hu.tvarga.bakingapp.R;
-import hu.tvarga.bakingapp.dataaccess.objects.RecepyWithIngredientsAndSteps;
 import hu.tvarga.bakingapp.ui.adapters.DetailAdapter;
 
-import static hu.tvarga.bakingapp.ui.adapters.MainCardAdapter.RECEPY_EXTRA_KEY;
-
-public class DetailFragment extends BaseFragment {
+public class DetailFragment extends DetailBaseFragment {
 
 	@BindView(R.id.detailFragment)
 	RecyclerView recyclerView;
 
-	public RecepyWithIngredientsAndSteps recepy;
-
 	private View root;
-	private Unbinder unbinder;
 	private DetailAdapter detailAdapter;
 
 	@Nullable
@@ -45,23 +38,7 @@ public class DetailFragment extends BaseFragment {
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		if (savedInstanceState != null && savedInstanceState.containsKey(RECEPY_EXTRA_KEY)) {
-			recepy = (RecepyWithIngredientsAndSteps) savedInstanceState.getSerializable(
-					RECEPY_EXTRA_KEY);
-			detailAdapter.setRecepy(recepy);
-		}
+		detailAdapter.setRecepy(recepy);
 	}
 
-	@Override
-	public void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-
-		outState.putSerializable(RECEPY_EXTRA_KEY, recepy);
-	}
-
-	@Override
-	public void onDestroyView() {
-		super.onDestroyView();
-		unbinder.unbind();
-	}
 }

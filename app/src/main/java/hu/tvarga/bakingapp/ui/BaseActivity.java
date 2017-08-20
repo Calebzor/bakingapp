@@ -1,4 +1,4 @@
-package hu.tvarga.bakingapp.ui.main;
+package hu.tvarga.bakingapp.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentManager;
 import butterknife.ButterKnife;
 import dagger.android.support.DaggerAppCompatActivity;
 import hu.tvarga.bakingapp.R;
-import hu.tvarga.bakingapp.ui.main.fragments.BaseFragment;
 
 public abstract class BaseActivity extends DaggerAppCompatActivity {
 

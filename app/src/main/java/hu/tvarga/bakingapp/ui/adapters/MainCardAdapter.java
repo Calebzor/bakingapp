@@ -14,7 +14,7 @@ import java.util.List;
 import butterknife.BindView;
 import hu.tvarga.bakingapp.R;
 import hu.tvarga.bakingapp.dataaccess.objects.RecepyWithIngredientsAndSteps;
-import hu.tvarga.bakingapp.ui.main.DetailActivity;
+import hu.tvarga.bakingapp.ui.detail.DetailActivity;
 
 public class MainCardAdapter extends RecyclerView.Adapter<MainCardAdapter.MainCardViewHolder> {
 

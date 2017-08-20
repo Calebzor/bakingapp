@@ -15,6 +15,7 @@ import hu.tvarga.bakingapp.dataaccess.db.RecepyFromNetworkDbHelper;
 import hu.tvarga.bakingapp.dataaccess.network.NetworkCallback;
 import hu.tvarga.bakingapp.dataaccess.network.Networking;
 import hu.tvarga.bakingapp.dataaccess.objects.RecepyWithIngredientsAndSteps;
+import hu.tvarga.bakingapp.ui.BaseActivity;
 import hu.tvarga.bakingapp.ui.main.fragments.MainCardFragment;
 import okhttp3.Call;
 import timber.log.Timber;

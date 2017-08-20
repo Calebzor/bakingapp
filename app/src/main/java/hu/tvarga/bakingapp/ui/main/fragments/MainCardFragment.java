@@ -19,6 +19,7 @@ import butterknife.Unbinder;
 import hu.tvarga.bakingapp.R;
 import hu.tvarga.bakingapp.dataaccess.db.DbFactory;
 import hu.tvarga.bakingapp.dataaccess.objects.RecepyWithIngredientsAndSteps;
+import hu.tvarga.bakingapp.ui.BaseFragment;
 import hu.tvarga.bakingapp.ui.adapters.MainCardAdapter;
 
 import static hu.tvarga.bakingapp.utilties.DispatchQueueHelper.runInBackgroundThread;
