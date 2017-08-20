@@ -73,6 +73,7 @@ public class MainActivity extends BaseActivity {
 			@Override
 			public void run() {
 				RecepyFromNetworkDbHelper.addRecepiesToDb(recepies, dbFactory.getDb());
+				((MainCardFragment) baseFragment).loadDataForFragment();
 			}
 		});
 	}

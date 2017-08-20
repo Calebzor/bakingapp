@@ -12,13 +12,15 @@ import butterknife.ButterKnife;
 import hu.tvarga.bakingapp.R;
 import hu.tvarga.bakingapp.ui.adapters.DetailAdapter;
 
+import static hu.tvarga.bakingapp.ui.adapters.DetailAdapter.DETAIL_ADAPTER_SELECTED_POSITION;
+
 public class DetailFragment extends DetailBaseFragment {
 
 	@BindView(R.id.detailFragment)
 	RecyclerView recyclerView;
 
-	private View root;
-	private DetailAdapter detailAdapter;
+	public DetailAdapter detailAdapter;
+
 
 	@Nullable
 	@Override
@@ -36,9 +38,21 @@ public class DetailFragment extends DetailBaseFragment {
 	}
 
 	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+
+		outState.putInt(DETAIL_ADAPTER_SELECTED_POSITION, detailAdapter.selectedPosition);
+	}
+
+	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		detailAdapter.setRecepy(recepy);
+		if (savedInstanceState != null && savedInstanceState.containsKey(
+				DETAIL_ADAPTER_SELECTED_POSITION)) {
+			detailAdapter.selectedPosition = savedInstanceState.getInt(
+					DETAIL_ADAPTER_SELECTED_POSITION);
+		}
 	}
 
 }

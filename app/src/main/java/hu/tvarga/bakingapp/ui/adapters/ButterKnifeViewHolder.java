@@ -6,7 +6,7 @@ import android.view.View;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-class ButterKnifeViewHolder extends RecyclerView.ViewHolder {
+public class ButterKnifeViewHolder extends RecyclerView.ViewHolder {
 
 	public Unbinder unbinder;
 

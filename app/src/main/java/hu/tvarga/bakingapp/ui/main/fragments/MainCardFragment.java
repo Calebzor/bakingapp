@@ -62,7 +62,7 @@ public class MainCardFragment extends BaseFragment {
 		loadDataForFragment();
 	}
 
-	private void loadDataForFragment() {
+	public void loadDataForFragment() {
 		runInBackgroundThread(new Runnable() {
 			@Override
 			public void run() {

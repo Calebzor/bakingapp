@@ -14,7 +14,8 @@
 	</FrameLayout>
 
 	<FrameLayout
-		android:id="@+id/detailActivityStepsContainer"
+		android:layout_marginStart="16dp"
+		android:id="@+id/detailActivitySecondContainer"
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
 		android:layout_weight="2">

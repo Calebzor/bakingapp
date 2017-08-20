@@ -1,6 +1,7 @@
 package hu.tvarga.bakingapp.ui.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +15,12 @@ import hu.tvarga.bakingapp.dataaccess.objects.Step;
 
 public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailBaseViewHolder> {
 
+	public static final String DETAIL_ADAPTER_SELECTED_POSITION =
+			"DETAIL_ADAPTER_SELECTED_POSITION";
+
 	private final Context context;
 	private RecepyWithIngredientsAndSteps recepy;
+	public int selectedPosition = 0;
 
 	public DetailAdapter(Context context) {
 		this.context = context;
@@ -33,12 +38,15 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailBase
 
 	@Override
 	public void onBindViewHolder(DetailBaseViewHolder holder, int position) {
+		holder.itemView.setBackgroundColor(
+				selectedPosition == position ? Color.LTGRAY : Color.TRANSPARENT);
 		if (position == 0) {
 			holder.onBind(context.getString(R.string.ingredients), null);
 		}
 		else {
-			Step step = recepy.steps.get(position - 1);
-			holder.onBind(step.id + ". " + step.shortDescription, step);
+			int index = position - 1;
+			Step step = recepy.steps.get(index);
+			holder.onBind(step.id + ". " + step.shortDescription, index);
 		}
 	}
 
@@ -61,12 +69,15 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailBase
 			super(itemView);
 		}
 
-		void onBind(String title, final Step step) {
+		void onBind(String title, final Integer step) {
 			this.title.setText(title);
 			itemView.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					((DetailItemClickAction) context).onItemClick(step);
+					notifyItemChanged(selectedPosition);
+					selectedPosition = getLayoutPosition();
+					notifyItemChanged(selectedPosition);
 				}
 			});
 		}
@@ -79,7 +90,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailBase
 		 *
 		 * @param step the step that was clicked, null means, it's not a step, but the ingredients
 		 */
-		void onItemClick(Step step);
+		void onItemClick(Integer step);
 	}
 
 }

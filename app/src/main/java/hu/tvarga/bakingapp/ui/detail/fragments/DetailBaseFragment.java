@@ -2,6 +2,7 @@ package hu.tvarga.bakingapp.ui.detail.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import butterknife.Unbinder;
 import hu.tvarga.bakingapp.dataaccess.objects.RecepyWithIngredientsAndSteps;
@@ -13,6 +14,7 @@ public abstract class DetailBaseFragment extends BaseFragment {
 
 	public RecepyWithIngredientsAndSteps recepy;
 	protected Unbinder unbinder;
+	protected View root;
 
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
