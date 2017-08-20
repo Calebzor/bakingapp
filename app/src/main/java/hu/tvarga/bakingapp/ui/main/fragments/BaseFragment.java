@@ -6,7 +6,6 @@ import android.view.View;
 
 import butterknife.ButterKnife;
 import dagger.android.support.DaggerFragment;
-import hu.tvarga.bakingapp.ui.main.MainActivity;
 
 public class BaseFragment extends DaggerFragment {
 
@@ -14,11 +13,6 @@ public class BaseFragment extends DaggerFragment {
 	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		ButterKnife.bind(this, view);
-	}
-
-	protected void loadFragment(BaseFragment baseFragment) {
-		MainActivity mainActivity = (MainActivity) getActivity();
-		mainActivity.loadFragment(baseFragment);
 	}
 
 }

@@ -1,22 +1,24 @@
 package hu.tvarga.bakingapp.ui.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
 import butterknife.BindView;
 import hu.tvarga.bakingapp.R;
 import hu.tvarga.bakingapp.dataaccess.objects.RecepyWithIngredientsAndSteps;
+import hu.tvarga.bakingapp.ui.main.DetailActivity;
 
 public class MainCardAdapter extends RecyclerView.Adapter<MainCardAdapter.MainCardViewHolder> {
 
+	public static final String RECEPY_EXTRA_KEY = "RECEPY_EXTRA_KEY";
 	private final Context context;
 	private final List<RecepyWithIngredientsAndSteps> recepies;
 
@@ -55,11 +57,12 @@ public class MainCardAdapter extends RecyclerView.Adapter<MainCardAdapter.MainCa
 
 		void onBind(final RecepyWithIngredientsAndSteps recepy) {
 			title.setText(recepy.name);
-			// load video thumbnail when available
 			itemView.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Toast.makeText(context, recepy.name, Toast.LENGTH_SHORT).show();
+					Intent intent = new Intent(context, DetailActivity.class);
+					intent.putExtra(RECEPY_EXTRA_KEY, recepy);
+					context.startActivity(intent);
 				}
 			});
 		}
