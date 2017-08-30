@@ -21,7 +21,6 @@ public class DetailFragment extends DetailBaseFragment {
 
 	public DetailAdapter detailAdapter;
 
-
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,

@@ -7,10 +7,11 @@
 	android:paddingBottom="@dimen/top_and_bottom_padding"
 	android:paddingTop="@dimen/top_and_bottom_padding">
 
-	<TextView
-		android:id="@+id/video"
+	<com.google.android.exoplayer2.ui.SimpleExoPlayerView
+		android:id="@+id/playerView"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content" />
+		android:layout_height="wrap_content"
+		/>
 
 	<ScrollView
 		android:layout_marginTop="16dp"

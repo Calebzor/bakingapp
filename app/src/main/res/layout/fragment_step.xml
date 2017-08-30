@@ -43,11 +43,11 @@
 		android:layout_alignParentTop="true"
 		android:layout_above="@id/buttonContainer">
 
-		<TextView
-			android:id="@+id/video"
+		<com.google.android.exoplayer2.ui.SimpleExoPlayerView
+			android:id="@+id/playerView"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			tools:text="Video url" />
+			/>
 
 		<ScrollView
 			android:id="@+id/descriptionScrollView"
