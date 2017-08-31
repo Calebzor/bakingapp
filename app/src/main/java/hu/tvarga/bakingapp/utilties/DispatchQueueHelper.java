@@ -1,7 +1,3 @@
-/*
- * Author: AdNovum Informatik AG
- */
-
 package hu.tvarga.bakingapp.utilties;
 
 import android.os.Handler;
