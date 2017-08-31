@@ -173,6 +173,8 @@ public class StepFragment extends SecondDetailFragment {
 		super.onSaveInstanceState(outState);
 
 		outState.putSerializable(STEP_EXTRA_KEY, step);
-		outState.putLong(VIDEO_PLAYBACK_POSITION, player.getCurrentPosition());
+		if (player != null) {
+			outState.putLong(VIDEO_PLAYBACK_POSITION, player.getCurrentPosition());
+		}
 	}
 }

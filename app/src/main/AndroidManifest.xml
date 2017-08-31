@@ -38,6 +38,25 @@
 				android:name="android.support.PARENT_ACTIVITY"
 				android:value="hu.tvarga.bakingapp.ui.detail.DetailActivity" />
 		</activity>
+
+		<receiver
+			android:name=".widget.WidgetProvider"
+			android:enabled="true"
+			android:label="@string/app_name">
+
+			<intent-filter>
+				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+				<action android:name="hu.tvarga.bakingapp.ACTION_DATA_UPDATED" />
+			</intent-filter>
+			<meta-data
+				android:name="android.appwidget.provider"
+				android:resource="@xml/widget_provider" />
+		</receiver>
+
+		<service
+			android:name=".widget.WidgetService"
+			android:enabled="true"
+			android:permission="android.permission.BIND_REMOTEVIEWS" />
 	</application>
 
 </manifest>

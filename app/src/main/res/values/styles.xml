@@ -8,4 +8,11 @@
 		<item name="colorAccent">@color/colorAccent</item>
 	</style>
 
+	<style name="BakingAppWidget">
+		<item name="android:background">@color/colorPrimary</item>
+		<item name="android:textSize">18sp</item>
+		<item name="android:textColor">@android:color/white</item>
+		<item name="android:padding">4dp</item>
+	</style>
+
 </resources>

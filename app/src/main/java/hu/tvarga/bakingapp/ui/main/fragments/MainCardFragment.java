@@ -1,5 +1,6 @@
 package hu.tvarga.bakingapp.ui.main.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -24,6 +25,7 @@ import hu.tvarga.bakingapp.ui.adapters.MainCardAdapter;
 
 import static hu.tvarga.bakingapp.utilties.DispatchQueueHelper.runInBackgroundThread;
 import static hu.tvarga.bakingapp.utilties.DispatchQueueHelper.runInMainThread;
+import static hu.tvarga.bakingapp.widget.WidgetProvider.ACTION_UPDATE;
 
 public class MainCardFragment extends BaseFragment {
 
@@ -77,6 +79,8 @@ public class MainCardFragment extends BaseFragment {
 					@Override
 					public void run() {
 						mainCardAdapter.notifyDataSetChanged();
+						Intent dataUpdatedIntent = new Intent(ACTION_UPDATE);
+						getContext().sendBroadcast(dataUpdatedIntent);
 					}
 				});
 			}
