@@ -4,6 +4,6 @@
 	android:autoAdvanceViewId="@+id/widget"
 	android:initialLayout="@layout/widget"
 	android:minHeight="180dp"
-	android:minWidth="60dp"
+	android:minWidth="120dp"
 	android:resizeMode="horizontal|vertical"
 	android:updatePeriodMillis="3000" />

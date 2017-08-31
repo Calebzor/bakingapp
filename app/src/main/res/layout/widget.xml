@@ -12,17 +12,13 @@
 		style="@style/BakingAppWidget"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:text="@string/app_name"
-		tools:text="Baking App" />
+		android:text="@string/app_name" />
 
 	<ListView
 		android:id="@+id/recepyList"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_below="@+id/title"
-		android:layout_marginEnd="@dimen/widget_margin"
-		android:layout_marginStart="@dimen/widget_margin"
-		android:layout_marginTop="@dimen/widget_margin" />
+		android:layout_below="@+id/title" />
 
 	<TextView
 		android:id="@+id/defaultMessage"

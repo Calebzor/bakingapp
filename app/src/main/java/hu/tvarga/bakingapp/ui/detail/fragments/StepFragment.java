@@ -74,7 +74,6 @@ public class StepFragment extends SecondDetailFragment {
 		}
 	};
 	private String videoURL;
-	;
 
 	@Nullable
 	@Override
