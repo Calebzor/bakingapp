@@ -2,11 +2,9 @@ package hu.tvarga.bakingapp.widget;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -14,10 +12,14 @@ import hu.tvarga.bakingapp.R;
 import hu.tvarga.bakingapp.dataaccess.db.DbFactory;
 import hu.tvarga.bakingapp.dataaccess.objects.Ingredient;
 import hu.tvarga.bakingapp.dataaccess.objects.RecepyWithIngredientsAndSteps;
+import hu.tvarga.bakingapp.dataaccess.preferences.Preferences;
 import hu.tvarga.bakingapp.di.DaggerWidgetServiceComponent;
 import hu.tvarga.bakingapp.di.androidinjectors.ServiceModule;
 import timber.log.Timber;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+import static hu.tvarga.bakingapp.ui.detail.DetailActivity.FAVORITE_RECEPY_INDEX;
 import static hu.tvarga.bakingapp.utilties.DispatchQueueHelper.runInBackgroundThread;
 import static hu.tvarga.bakingapp.widget.WidgetProvider.ACTION_UPDATE;
 
@@ -40,8 +42,9 @@ public class WidgetService extends RemoteViewsService {
 
 	public class BakingAppWidgetViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
-		private List<RecepyWithIngredientsAndSteps> recepies = new ArrayList<>();
+		private RecepyWithIngredientsAndSteps recepyWithIngredientAndSteps;
 		private Context context;
+		private int favoritesIndex = -1;
 
 		public BakingAppWidgetViewsFactory(Context applicationContext) {
 			context = applicationContext;
@@ -66,19 +69,22 @@ public class WidgetService extends RemoteViewsService {
 
 		@Override
 		public int getCount() {
-			return recepies.size();
+			return 1;
 		}
 
 		@Override
 		public RemoteViews getViewAt(int position) {
-			RecepyWithIngredientsAndSteps recepyWithIngredientsAndSteps = recepies.get(position);
-			if (recepyWithIngredientsAndSteps == null) {
-				return null;
-			}
 			RemoteViews row = new RemoteViews(context.getPackageName(), R.layout.recepy_list_item);
-			row.setTextViewText(R.id.text, recepyWithIngredientsAndSteps.name);
+			if (favoritesIndex == -1 || recepyWithIngredientAndSteps == null) {
+				row.setViewVisibility(R.id.listItemContainer, GONE);
+				row.setViewVisibility(R.id.defaultMessage, VISIBLE);
+				return row;
+			}
+			row.setViewVisibility(R.id.listItemContainer, VISIBLE);
+			row.setViewVisibility(R.id.defaultMessage, GONE);
+			row.setTextViewText(R.id.text, recepyWithIngredientAndSteps.name);
 			StringBuilder sb = new StringBuilder("");
-			for (Ingredient ingredient : recepyWithIngredientsAndSteps.ingredients) {
+			for (Ingredient ingredient : recepyWithIngredientAndSteps.ingredients) {
 				if (ingredient.ingredient != null) {
 					sb.append(ingredient.ingredient).append("\n");
 				}
@@ -113,16 +119,14 @@ public class WidgetService extends RemoteViewsService {
 		}
 
 		public void loadData(final boolean shouldBroadcastUpdate) {
+			SharedPreferences sharedPreferences = Preferences.getSharedPreferences(context);
+			favoritesIndex = sharedPreferences.getInt(FAVORITE_RECEPY_INDEX, -1);
 			runInBackgroundThread(new Runnable() {
 				@Override
 				public void run() {
-					List<RecepyWithIngredientsAndSteps> recepyWithIngredientsAndStepses =
+					recepyWithIngredientAndSteps =
 							dbFactory.getDb().recepyWithIngredientsAndStepsDao()
-									.loadAllRecepyWithIngredientsAndSteps();
-					if (recepyWithIngredientsAndStepses != null) {
-						recepies.clear();
-						recepies.addAll(recepyWithIngredientsAndStepses);
-					}
+									.loadRecepyWithIngredientsAndSteps(favoritesIndex);
 					if (shouldBroadcastUpdate) {
 						Intent dataUpdatedIntent = new Intent(ACTION_UPDATE);
 						context.sendBroadcast(dataUpdatedIntent);

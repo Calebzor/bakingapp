@@ -1,28 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout android:id="@+id/listItem"
+<FrameLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/listItem"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:layout_marginBottom="2dp"
-	android:paddingStart="4dp"
-	android:paddingEnd="4dp"
-	android:paddingTop="4dp"
-	android:paddingBottom="4dp"
-	android:orientation="vertical">
+	android:layout_height="match_parent">
+
+	<LinearLayout
+		android:id="@+id/listItemContainer"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_marginBottom="2dp"
+		android:orientation="vertical"
+		android:paddingBottom="4dp"
+		android:paddingEnd="4dp"
+		android:paddingStart="4dp"
+		android:paddingTop="4dp">
+
+		<TextView
+			android:id="@+id/text"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:textSize="18sp"
+			android:textStyle="bold"
+			tools:text="text" />
+
+		<TextView
+			android:id="@+id/ingredients"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			tools:text="ingredients" />
+	</LinearLayout>
 
 	<TextView
-		android:id="@+id/text"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:textSize="18sp"
-		android:textStyle="bold"
-		tools:text="text" />
-
-	<TextView
-		android:id="@+id/ingredients"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		tools:text="ingredients" />
-</LinearLayout>
+		android:id="@+id/defaultMessage"
+		android:layout_width="wrap_content"
+		android:layout_height="match_parent"
+		android:layout_gravity="center"
+		android:text="@string/widget_nothing_to_show"
+		android:visibility="gone"
+		tools:text="Nothing to show"
+		tools:visibility="visible" />
+</FrameLayout>

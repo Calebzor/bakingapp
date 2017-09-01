@@ -12,4 +12,7 @@ public interface RecepyWithIngredientsAndStepsDao {
 
 	@Query("SELECT * from recepy")
 	List<RecepyWithIngredientsAndSteps> loadAllRecepyWithIngredientsAndSteps();
+
+	@Query("SELECT * from recepy WHERE id = (:id)")
+	RecepyWithIngredientsAndSteps loadRecepyWithIngredientsAndSteps(int id);
 }

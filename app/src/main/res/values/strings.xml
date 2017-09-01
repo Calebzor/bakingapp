@@ -7,4 +7,5 @@
 	<string name="next_step">Next step</string>
 	<string name="previous_step">Previous step</string>
 	<string name="widget_nothing_to_show">Nothing to show</string>
+	<string name="favorite">favorite</string>
 </resources>

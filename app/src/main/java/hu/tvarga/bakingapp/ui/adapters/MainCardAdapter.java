@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -61,6 +63,10 @@ public class MainCardAdapter extends RecyclerView.Adapter<MainCardAdapter.MainCa
 
 		void onBind(final RecepyWithIngredientsAndSteps recepy) {
 			title.setText(recepy.name);
+			String imageUrl = recepy.image;
+			if (imageUrl != null && !imageUrl.isEmpty()) {
+				Picasso.with(context).load(imageUrl).into(imageView);
+			}
 			itemView.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {

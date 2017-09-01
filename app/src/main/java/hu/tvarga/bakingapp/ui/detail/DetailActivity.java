@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import hu.tvarga.bakingapp.R;
 import hu.tvarga.bakingapp.dataaccess.objects.RecepyWithIngredientsAndSteps;
@@ -18,15 +21,18 @@ import hu.tvarga.bakingapp.utilties.GsonHelper;
 
 import static hu.tvarga.bakingapp.ui.adapters.MainCardAdapter.RECEPY_EXTRA_KEY;
 import static hu.tvarga.bakingapp.ui.detail.fragments.StepFragment.STEP_EXTRA_KEY;
+import static hu.tvarga.bakingapp.widget.WidgetProvider.ACTION_UPDATE;
 
 public class DetailActivity extends DetailBaseActivity
 		implements DetailAdapter.DetailItemClickAction {
 
+	public static final String FAVORITE_RECEPY_INDEX = "FAVORITE_RECEPY_INDEX";
 	private static final String SECOND_FRAGMENT_INSTANCE_KEY = "SECOND_FRAGMENT_INSTANCE_KEY";
 
 	SecondDetailFragment secondDetailFragment;
 	private boolean multiPane;
 	private SharedPreferences sharedPreferences;
+	private Menu menu;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +67,52 @@ public class DetailActivity extends DetailBaseActivity
 			}
 
 			loadFragment(secondDetailFragment);
+		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		this.menu = menu;
+		getMenuInflater().inflate(R.menu.menu, menu);
+		setFavoriteIcon();
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int id = item.getItemId();
+
+		if (id == R.id.favorite) {
+			toggleFavorite();
+			return true;
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
+
+	private void toggleFavorite() {
+		int favoritesIndex = sharedPreferences.getInt(FAVORITE_RECEPY_INDEX, -1);
+		int newIndex = -1;
+		if (favoritesIndex != recepy.id) {
+			newIndex = recepy.id;
+		}
+		sharedPreferences.edit().putInt(FAVORITE_RECEPY_INDEX, newIndex).apply();
+		setFavoriteIcon();
+		Intent dataUpdatedIntent = new Intent(ACTION_UPDATE);
+		sendBroadcast(dataUpdatedIntent);
+	}
+
+	private void setFavoriteIcon() {
+		int favoritesIndex = sharedPreferences.getInt(FAVORITE_RECEPY_INDEX, -1);
+		if (menu != null && menu.getItem(0) != null) {
+			if (favoritesIndex == -1 || recepy == null || favoritesIndex != recepy.id) {
+				menu.getItem(0).setIcon(
+						ContextCompat.getDrawable(this, android.R.drawable.btn_star_big_off));
+			}
+			else {
+				menu.getItem(0).setIcon(
+						ContextCompat.getDrawable(this, android.R.drawable.btn_star_big_on));
+			}
 		}
 	}
 
